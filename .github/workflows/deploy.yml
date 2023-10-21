@@ -7,8 +7,12 @@ on:
 jobs:
   build and test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - run: |
-        docker build -t pawelskibinski/frontend-test -f Docker.dev .
-        docker run -e CI=true pawelskibinski/frontend-test npm test
+
+      - name: build docker
+        run: docker build -t pawelskibinski/frontend-test -f Docker.dev . 
+        
+      - name: run tests
+        run: docker run -e CI=true pawelskibinski/frontend-test npm test
